@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Search App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .search-bar {
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .emoji-card {
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .emoji-card p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Emoji Search App</h1>
+    </header>
+
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search emojis...">
+        </div>
+
+        <div class="emoji-grid" id="emoji-grid">
+            <!-- Emojis will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        const emojiData = [
+            { emoji: "😀", name: "Grinning Face" },
+            { emoji: "😂", name: "Face with Tears of Joy" },
+            { emoji: "😍", name: "Heart Eyes" },
+            { emoji: "🤔", name: "Thinking Face" },
+            { emoji: "😎", name: "Smiling Face with Sunglasses" },
+            { emoji: "😭", name: "Loudly Crying Face" },
+            { emoji: "🎉", name: "Party Popper" },
+            { emoji: "❤️", name: "Red Heart" },
+            { emoji: "🔥", name: "Fire" },
+            { emoji: "👍", name: "Thumbs Up" },
+        ];
+
+        const searchInput = document.getElementById("search");
+        const emojiGrid = document.getElementById("emoji-grid");
+
+        function displayEmojis(filter = "") {
+            emojiGrid.innerHTML = ""; // Clear the grid
+
+            const filteredEmojis = emojiData.filter(item =>
+                item.name.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            filteredEmojis.forEach(item => {
+                const emojiCard = document.createElement("div");
+                emojiCard.classList.add("emoji-card");
+
+                emojiCard.innerHTML = `
+                    <div>${item.emoji}</div>
+                    <p>${item.name}</p>
+                `;
+
+                emojiGrid.appendChild(emojiCard);
+            });
+        }
+
+        // Display all emojis on initial load
+        displayEmojis();
+
+        // Add event listener for search
+        searchInput.addEventListener("input", (e) => {
+            displayEmojis(e.target.value);
+        });
+    </script>
+</body>
+</html>
